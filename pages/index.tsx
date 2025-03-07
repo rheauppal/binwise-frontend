@@ -1,12 +1,5 @@
 import Navbar from "../components/Navbar";
 import Link from "next/link";
-// export default function Home() {
-//   return (
-//     <div className="bg-red-500 text-white p-10 text-center">
-//       TailwindCSS is working! ✅
-//     </div>
-//   );
-// }
 
 export default function Home() {
     return (
@@ -31,7 +24,7 @@ export default function Home() {
                 <div className="max-w-4xl mx-auto">
                     <h2 className="text-4xl font-bold">♻️ Why Recycling Matters</h2>
                     <p className="mt-4 text-2xl font-light">
-                        "Plastic waste takes up to <strong>500 years</strong> to break down, and 91% of plastic is never recycled."
+                        &quot;Plastic waste takes up to <strong>500 years</strong> to break down, and 91% of plastic is never recycled.&quot;
                     </p>
                 </div>
             </section>
@@ -41,7 +34,6 @@ export default function Home() {
                 <div className="max-w-6xl mx-auto text-center">
                     <h2 className="text-4xl font-bold text-gray-800">📌 How It Works</h2>
                     <div className="mt-12 flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
-
                         {/* Step 1 */}
                         <div className="relative bg-blue-100 p-8 rounded-lg shadow-lg w-80 text-center">
                             <h3 className="text-xl font-semibold text-blue-700">📸 Scan an Image</h3>
@@ -50,7 +42,6 @@ export default function Home() {
                                 ➡️
                             </div>
                         </div>
-
                         {/* Step 2 */}
                         <div className="relative bg-green-100 p-8 rounded-lg shadow-lg w-80 text-center">
                             <h3 className="text-xl font-semibold text-green-700">🔍 Search for an Item</h3>
@@ -59,13 +50,11 @@ export default function Home() {
                                 ➡️
                             </div>
                         </div>
-
                         {/* Step 3 */}
                         <div className="bg-gray-100 p-8 rounded-lg shadow-lg w-80 text-center">
                             <h3 className="text-xl font-semibold text-gray-700">🗑️ Get an Instant Answer</h3>
                             <p className="text-gray-700 mt-2">We’ll tell you the best dustbin for your waste.</p>
                         </div>
-
                     </div>
                 </div>
             </section>

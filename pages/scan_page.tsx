@@ -2,26 +2,37 @@
 // import axios from "axios";
 // import Navbar from "../components/Navbar";
 
+// const API_BASE_URL = "https://binwise-backend.onrender.com";
 // export default function Scanner() {
 //     const [textInput, setTextInput] = useState("");
 //     const [image, setImage] = useState<File | null>(null);
-//     const [classification, setClassification] = useState<any>(null);
+//     const [classifications, setClassifications] = useState<{ item: string; category: string }[]>([]);
 //     const [loading, setLoading] = useState(false);
+
+//     // Define colors for waste categories
+//     const categoryColors: Record<string, string> = {
+//         "Recyclable": "bg-blue-500",
+//         "Organic": "bg-green-500",
+//         "Mixed Waste": "bg-yellow-500",
+//         "Hazardous": "bg-red-500",
+//         "Landfill": "bg-gray-500",
+//         "E-Waste": "bg-orange-500",
+//         "Medical Waste": "bg-white text-gray-800 border border-gray-400"
+//     };
 
 //     const handleTextSubmit = async () => {
 //         if (!textInput) return;
 //         setLoading(true);
-//         setClassification(null);
+//         setClassifications([]);
 
 //         try {
-//             console.log(textInput);
-//             const response = await axios.post("http://localhost:3001/api/classify", {
-//                 itemName: textInput,
-//             });
+//             console.log("🚀 Sending request:", textInput);
+//             const response = await axios.post(`${API_BASE_URL}/api/classify`, { itemName: textInput });
+//             console.log("✅ Response received:", response.data);
 
-//             setClassification(response.data);
+//             setClassifications([{ item: textInput, category: response.data.category }]);
 //         } catch (error) {
-//             console.error("Error classifying item:", error);
+//             console.error("❌ Error classifying item:", error);
 //         }
 //         setLoading(false);
 //     };
@@ -32,16 +43,26 @@
 
 //         setImage(file);
 //         setLoading(true);
-//         setClassification(null);
+//         setClassifications([]);
 
 //         const formData = new FormData();
 //         formData.append("image", file);
 
 //         try {
-//             const response = await axios.post("http://localhost:3001/api/image/detect", formData);
-//             setClassification(response.data);
+//             console.log("📸 Uploading image...");
+//             const response = await axios.post(`${API_BASE_URL}/api/image/detect`, formData);
+//             console.log("✅ Image classified:", response.data);
+
+//             // Extract detected objects and categories from response
+//             const detectedObjects = response.data.detectedObjects || [];
+//             const classificationsArray = detectedObjects.map((item: string) => ({
+//                 item,
+//                 category: response.data.classifications[item] || "Unknown"
+//             }));
+
+//             setClassifications(classificationsArray);
 //         } catch (error) {
-//             console.error("Error classifying image:", error);
+//             console.error("❌ Error classifying image:", error);
 //         }
 
 //         setLoading(false);
@@ -57,8 +78,8 @@
 //                 <p className="text-gray-600 mt-2">Use your device's camera to scan the object or input the details manually.</p>
 
 //                 {/* Start Scanning Button */}
-//                 <label className="mt-6 bg-green-400 hover:bg-green-500 text-white font-semibold px-6 py-3 rounded-full text-lg shadow-md cursor-pointer transition duration-300 inline-block">
-//                     Start Scanning
+//                 <label className="mt-6 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full text-lg shadow-md cursor-pointer transition duration-300 inline-block">
+//                     📸 Start Scanning
 //                     <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
 //                 </label>
 
@@ -81,7 +102,7 @@
 //                     <button
 //                         onClick={handleTextSubmit}
 //                         disabled={loading}
-//                         className="bg-green-400 hover:bg-green-500 text-white font-semibold px-6 py-3 rounded-full text-lg shadow-md transition duration-300"
+//                         className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full text-lg shadow-md transition duration-300"
 //                     >
 //                         {loading ? "Classifying..." : "Submit"}
 //                     </button>
@@ -94,11 +115,17 @@
 //                     </div>
 //                 )}
 
-//                 {/* Classification Result */}
-//                 {classification && (
-//                     <div className="mt-6 p-4 bg-gray-100 shadow-md rounded-lg">
-//                         <h3 className="text-xl font-semibold text-gray-800">Classification Result:</h3>
-//                         <pre className="text-gray-700 mt-2 text-lg">{JSON.stringify(classification, null, 2)}</pre>
+//                 {/* Classification Results */}
+//                 {classifications.length > 0 && (
+//                     <div className="mt-6 p-6 rounded-lg shadow-md bg-gray-200 text-center text-lg font-semibold">
+//                         <h3 className="text-xl text-gray-800">Detected Items:</h3>
+//                         <div className="mt-3 space-y-4">
+//                             {classifications.map((classification, index) => (
+//                                 <div key={index} className={`p-4 rounded-lg shadow-md text-white ${categoryColors[classification.category] || "bg-gray-500"}`}>
+//                                     <p className="text-lg">🗑️ <span className="font-bold">{classification.item}</span> → {classification.category}</p>
+//                                 </div>
+//                             ))}
+//                         </div>
 //                     </div>
 //                 )}
 //             </div>
